@@ -1,0 +1,38 @@
+
+
+  <% if type == :new %>
+  <% action_url = users_url%>
+  <% button_text = "Create User!"%>
+
+  <% elsif type == :login %>
+  <% action_url = session_url %>
+  <% button_text = "Log In User!"%>
+
+  <% else %>
+  <% action_url = user_url(template_user)%>
+  <% button_text = "Update User!"%>
+  <% end  %>
+
+
+  <form action="<%=action_url%>" method="post">
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+    <% if type == :edit%>
+    <input type="hidden" name="_method" value="patch">
+    <% end %>
+
+    <label for="username">
+      Username:
+      <input type="text" name="user[username]" value="<%=template_user.username%>">
+    </label>
+    <br>
+    <label for="password">
+      Password:
+      <input type="password" name="user[password]">
+      </input>
+    </label>
+    <br>
+
+
+    <input type="submit" value="<%= button_text %>">
+  </form>
